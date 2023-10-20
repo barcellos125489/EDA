@@ -31,3 +31,5 @@ Map** conflito_secundario(Map** vetor, Map*inserido){
     auxiliar->proxima = i;
     return vetor;
 }
+
+

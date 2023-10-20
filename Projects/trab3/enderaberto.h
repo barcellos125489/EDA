@@ -7,3 +7,5 @@ typedef Struct map{
     char dados[7];
     struct map* proxima;
 } Map;
+
+int hash(char * placa, int tentativa);
