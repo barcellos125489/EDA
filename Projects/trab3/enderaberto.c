@@ -6,8 +6,8 @@ Map** conflito_primario(Map** vetor, Map* inserido){
         i++;
     }    
     vetor[i]=inserido;
-    Map* auxiliar = vetor[inserido->chave]
-    while(auxiliar->prox != NULL){
+    Map* auxiliar = vetor[inserido->chave];
+    while(auxiliar->proxima != NULL){
         auxiliar = auxiliar->proxima;
     }
     auxiliar->proxima=vetor[i];
@@ -32,4 +32,14 @@ Map** conflito_secundario(Map** vetor, Map*inserido){
     return vetor;
 }
 
+int hash(char* placa, int tentativa){
+    //utilizei o método de folding com uma multiplicação no final, para que seja possível ocupar mais posições do que com um simples folding
+    int Hash=0;
+    for(int i=0; i<7;i++){
+        Hash+= placa[7];
+    }
+    Hash+=tentativa;
+    Hash*=1.9;
+    return Hash;
+}
 

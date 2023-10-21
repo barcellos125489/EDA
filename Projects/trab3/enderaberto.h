@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef Struct map{
+typedef struct map{
     int chave;
     char dados[7];
     struct map* proxima;
