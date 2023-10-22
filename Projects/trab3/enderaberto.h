@@ -5,7 +5,7 @@
 typedef struct map{
     int chave;
     char dados[7];
-    struct map* proxima;
+    int proxima;
 } Map;
 
-int hash(char * placa, int tentativa);
+int hashcalc(char * placa, int tentativa);

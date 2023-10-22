@@ -32,14 +32,17 @@ Map** conflito_secundario(Map** vetor, Map*inserido){
     return vetor;
 }
 
-int hash(char* placa, int tentativa){
+int hashcalc(char* placa, int tentativa){
     //utilizei o método de folding com uma multiplicação no final, para que seja possível ocupar mais posições do que com um simples folding
-    int Hash=0;
+    unsigned int Hash=0;
     for(int i=0; i<7;i++){
-        Hash+= placa[7];
+        Hash+= placa[i];
     }
     Hash+=tentativa;
-    Hash*=1.9;
+    Hash*=Hash;
+    //VAPO
+    Hash = Hash%1031;
+    //Hash = (Hash & 0x1FF800)>>8;
     return Hash;
 }
 
