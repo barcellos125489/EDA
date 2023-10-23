@@ -1,35 +1,39 @@
 #include "enderaberto.h"
 
-Map** conflito_primario(Map** vetor, Map* inserido){
-    int i = inserido->chave+1;
-    while(vetor[i]->dados){
-        i++;
-    }    
-    vetor[i]=inserido;
-    Map* auxiliar = vetor[inserido->chave];
-    while(auxiliar->proxima != NULL){
-        auxiliar = auxiliar->proxima;
+void insere_hashtable(Map** vetor, char* string ){
+    Map* inserido = (Map*) malloc(sizeof(Map));
+    inserido->chave = hashcalc(string,0);
+    inserido->proxima = -1;
+    inserido->dados = string;
+    //se nao conseguir colocar no lugar certo
+    if(vetor[hashcalc(string,0)]==NULL){
+        vetor[hashcalc(string,0)]=inserido;
+    } 
+    else if(vetor[hashcalc(string,0)]->chave == inserido->chave){
+        //conflito primario
+        printf("\nOCORREU UM CONFLITO PRIMARIO COM VALOR %d\n", inserido->chave);
+        int i=0;
+        while(vetor[hashcalc(string,i++)]);
+        vetor[i]=inserido;
+        Map* aux = vetor[inserido->chave];
+        while(aux->proxima!=-1){
+            aux = vetor[aux->proxima];
+        }
+        aux->proxima = i;
     }
-    auxiliar->proxima=vetor[i];
-    return vetor;
-}
-
-Map** conflito_secundario(Map** vetor, Map*inserido){
-    //temos que pegar o errado, mudar ele de posição, colocar o certo na posição antiga do errado.
-    int i= inserido->chave;
-    Map* errado = vetor[i];
-    vetor[i] = inserido;
-    i++;
-    while(vetor[i]->dados){
-        i++;
+    else{
+        printf("\nOCORREU UM CONFLITO SECUNDARIO COM O VALOR %d\n",inserido->chave);
+        Map* errado = vetor[inserido->chave];
+        vetor[inserido->chave]=inserido;
+        int i = 0;
+        while(vetor[hashcalc(errado->dados,i++)]);
+        vetor[hashcalc(errado->dados,i)]=errado;
+        Map* aux = vetor[errado->chave]; 
+        while(aux->proxima!=-1){
+            aux = vetor[aux->proxima];
+        }
+        aux->proxima=hashcalc(errado->dados,i);
     }
-    vetor[i]=errado;
-    Map* auxiliar=vetor[errado->chave];
-    while(auxiliar->chave == errado->chave){
-        auxiliar = auxiliar->proxima;
-    }
-    auxiliar->proxima = i;
-    return vetor;
 }
 
 int hashcalc(char* placa, int tentativa){

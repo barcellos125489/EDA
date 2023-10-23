@@ -1,20 +1,70 @@
 #include "enderaberto.h"
 
-#define TAM 1031
 
 int main(void){
     Map* vetor[TAM];
+    for(int i=0; i<TAM; i++){
+        vetor[i]=NULL;
+    }
+    printf("%ld\n",sizeof(vetor));
     FILE* arq = fopen("placasMercosul.txt","r");
     char string[10];
     char dados[7];
-    for(int i=0; i<512; i++){
+    for(int i=0; i<60; i++){
         if(fgets(string,10,arq)){
             for(int cont=0;cont<7;cont++){
                 dados[cont]=string[cont];
             } 
         }
-        printf("%d\n", hashcalc(dados,0));
-
+        insere_hashtable(vetor,dados);
+    }
+    for(int i=0; i<10; i++){
+        printf("%p,  %d\n",vetor[i], i);
     }
     return 0;
+    /*CORREU UM CONFLITO PRIMARIO COM VALOR 452
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 266
+
+OCORREU UM CONFLITO SECUNDARIO COM O VALOR 2
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 548
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 964
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 825
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 181
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 949
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 452
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 548
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 27
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 787
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 1014
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 27
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 646
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 787
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 166
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 530
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 548
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 867
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 548
+
+OCORREU UM CONFLITO PRIMARIO COM VALOR 97
+
+OCORREU UM CONFLITO SECUNDARIO COM O VALOR 633*/
 }
