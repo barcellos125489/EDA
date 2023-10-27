@@ -1,70 +1,29 @@
 #include "enderaberto.h"
 
+#define LER 512
 
 int main(void){
     Map* vetor[TAM];
+    int colisoes=0;
     for(int i=0; i<TAM; i++){
         vetor[i]=NULL;
     }
-    printf("%ld\n",sizeof(vetor));
     FILE* arq = fopen("placasMercosul.txt","r");
-    char string[10];
-    char dados[7];
-    for(int i=0; i<60; i++){
-        if(fgets(string,10,arq)){
-            for(int cont=0;cont<7;cont++){
-                dados[cont]=string[cont];
-            } 
+    if(arq ==NULL){
+        printf("erro ao abrir o arquivo\n");
+    }
+    char string[8];
+    for(int i=0; i<LER; i++){
+        if(fscanf(arq, "%s\r\n", string) == 1){
+            insere_hashtable(vetor,string,&colisoes);
+            remove_hashtable(vetor, string);
+        }    
+    }
+    for(int i=0; i<TAM; i++){
+        if(vetor[i]!=NULL){
+            printf("%s, %d, o prox eh %d\n",vetor[i]->dados, i, vetor[i]->proxima);
         }
-        insere_hashtable(vetor,dados);
     }
-    for(int i=0; i<10; i++){
-        printf("%p,  %d\n",vetor[i], i);
-    }
+    printf("Ocorreram %d colisoes \n",colisoes);
     return 0;
-    /*CORREU UM CONFLITO PRIMARIO COM VALOR 452
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 266
-
-OCORREU UM CONFLITO SECUNDARIO COM O VALOR 2
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 548
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 964
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 825
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 181
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 949
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 452
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 548
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 27
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 787
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 1014
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 27
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 646
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 787
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 166
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 530
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 548
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 867
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 548
-
-OCORREU UM CONFLITO PRIMARIO COM VALOR 97
-
-OCORREU UM CONFLITO SECUNDARIO COM O VALOR 633*/
 }
