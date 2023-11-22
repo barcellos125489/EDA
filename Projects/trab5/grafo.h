@@ -15,8 +15,8 @@ typedef struct grafo{
 }Grafo;
 
 typedef struct fila{
-    Viz** visitados;
-    Viz** proximos;
+    int* visitados;
+    int* proximos;
 }Fila;
 
 Grafo* grafoCria(int nv, int na);
