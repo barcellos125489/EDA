@@ -62,6 +62,8 @@ int main(void){
     grafo_principal->vizinhos[9]= criaViz(grafo_principal->vizinhos[9],8,4);
     grafo_principal->vizinhos[9]= criaViz(grafo_principal->vizinhos[9],7,2);
 
+    
+
 
     return 0;
 }
