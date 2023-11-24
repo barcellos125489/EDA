@@ -10,9 +10,10 @@ Viz* criaViz(Viz* head, int noj, float peso) {
     return no;
 }
 
-int presentenafila(int* vetor, int buscado, int sizefila){
+int presentenafila(Fila fila, int buscado, int sizefila){
     for(int i=0; i<sizefila;i++){
-        if(vetor[i]==buscado) return 0;
+        if(fila.visitados[i]==buscado) return 0;
+        if(fila.proximos[i]==buscado) return 0;
     }
     return 1;
 }
@@ -52,7 +53,7 @@ void add_visitado(int no, Fila fila, int sizefila){
 
 void add_proximo(Viz* no, Fila fila, int sizefila){
     for(int i=0; i<sizefila; i++){
-        if(fila.proximos[i]==0 && presentenafila(fila.visitados,no->noj,sizefila)){
+        if(fila.proximos[i]==0 && presentenafila(fila,no->noj,sizefila)){
             fila.proximos[i]=no->noj;
             printf("Elemento %d adicionado à fila de proximos!\n", no->noj);
             break;
@@ -65,6 +66,10 @@ void bfs(Grafo* grafo){ //sempre começa pelo vértice 1
     struct fila fila;
     fila.proximos = (int*) malloc(sizeof(int)*grafo->numno);
     fila.visitados = (int*) malloc(sizeof(int)*grafo->numno);
+    for(int i=0; i<grafo->numno;i++){
+        fila.proximos[i]=0;
+        fila.visitados[i]=0;
+    }
     Viz* atual = grafo->vizinhos[0];
     printf("Percorrendo 0\n");
     add_visitado(0,fila,grafo->numno);
@@ -104,3 +109,4 @@ void bfs(Grafo* grafo){ //sempre começa pelo vértice 1
     }
     
 }
+
