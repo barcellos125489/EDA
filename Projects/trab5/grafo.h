@@ -4,6 +4,7 @@
 
 typedef struct viz{
     int noj;
+    int nor;
     float peso;
     struct viz* prox;
 }Viz;
@@ -18,7 +19,14 @@ typedef struct fila{
     int* visitados;
     int* proximos;
 }Fila;
+typedef struct forest_node_t {
+    void* value;
+    struct forest_node_t* parent;
+}forest_node;
 
 Grafo* grafoCria(int nv, int na);
 void bfs(Grafo* grafo);
-Viz* criaViz(Viz* head, int noj, float peso);
+Viz* criaViz(Viz* head, int noj, float peso, int nor);
+forest_node** kruskal(Grafo* grafo);
+forest_node* Find(forest_node* node);
+void destroi_grafo(Grafo* grafo);
